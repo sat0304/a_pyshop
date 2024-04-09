@@ -4,13 +4,6 @@ from datetime import datetime, timedelta
 from django.conf import settings
 
 
-class TokensPair():
-    token_pairs_dict = {}
-
-
-dict_tokens = TokensPair()
-
-
 def create_refresh_token(email):
     dt = datetime.now() + timedelta(days=30)
     refresh_token = jwt.encode({

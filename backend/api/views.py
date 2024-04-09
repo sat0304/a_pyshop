@@ -3,6 +3,7 @@ import jwt
 
 from datetime import datetime, timedelta
 
+from django.core.cache import cache
 from django.shortcuts import get_object_or_404
 
 from rest_framework import status
@@ -19,9 +20,7 @@ from api.serializers import (
     RegistrationSerializer,
     UserDataSerializer,
 )
-from api.utils import create_refresh_token, TokensPair
-
-dict_tokens = TokensPair()
+from api.utils import create_refresh_token
 
 
 class AllAPIView(APIView):
@@ -94,14 +93,19 @@ class UserDataAPIView(APIView):
     serializer_class = UserDataSerializer
 
     def get(self, request):
-        user = request.user
+        email = cache.get('email').split()[0]
+        user = get_object_or_404(User, email=email)
         serializer = self.serializer_class(user, many=False)
         return Response(serializer.data)
 
     def put(self, request):
+        email = cache.get('email').split()[0]
+        user = get_object_or_404(User, email=email)
         username = request.data.get('username', '')
         data = {
             'username': username,
         }
         serializer = self.serializer_class(user, data=data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         return Response(serializer.data)

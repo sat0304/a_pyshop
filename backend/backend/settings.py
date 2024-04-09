@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'constance',
     'rest_framework',
     # 'rest_framework.authtoken',
     'api.apps.ApiConfig',
@@ -61,6 +62,26 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 
+CONSTANCE_CONFIG = {
+    'email': ('Email address', 'email'),
+    'access_token': ("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9."
+                         "eyJpZCI6MiwiZXhwIjoxNzEyNjY4ODE1fQ.", 'access'
+                         "d8vqnc02w82k6RxeA3rN_e0R43_V3r8oIEgQfS93HCY"),
+    'refresh_token': ("76bkCHtFKEnlWNArlm8ZHOllF6VGuBtHUWXTbK5LecQ", 'refresh'),
+
+}
+
+CONSTANCE_CONFIG_FIELDSETS = {
+    'email tokens': ('email', 'access_token', 'refresh_token'),
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': 'localhost:6379',
+        'db': 0,
+    },
+}
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 

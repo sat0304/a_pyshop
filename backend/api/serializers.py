@@ -2,6 +2,7 @@ import jwt
 
 from datetime import datetime, timedelta
 from django.conf import settings
+from django.core.cache import cache
 from rest_framework import serializers
 
 from api.fields import AccessTokenCreate, AccessTokenView
@@ -26,6 +27,7 @@ class LoginSerializer(serializers.ModelSerializer):
 
     def get_access_token(self, obj):
         access_token = create_access_token(obj)
+        cache.set('email', obj.email + ' ' + access_token, 30)
         return access_token
 
 
@@ -48,6 +50,7 @@ class RefreshSerializer(serializers.ModelSerializer):
 
     def get_access_token(self, obj):
         access_token = create_access_token(obj)
+        cache.set('email', obj.email + ' ' + access_token, 30)
         return access_token
 
 
