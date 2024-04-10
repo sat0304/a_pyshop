@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import date, datetime, timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -63,17 +64,15 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 
 CONSTANCE_CONFIG = {
-    'email': ('Email address', 'email'),
-    'access_token': ("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9."
-                         "eyJpZCI6MiwiZXhwIjoxNzEyNjY4ODE1fQ.", 'access'
-                         "d8vqnc02w82k6RxeA3rN_e0R43_V3r8oIEgQfS93HCY"),
-    'refresh_token': ("76bkCHtFKEnlWNArlm8ZHOllF6VGuBtHUWXTbK5LecQ", 'refresh'),
+    # 'email': ('Email address', 'email'),
+    'access_token': (date(2024, 4, 10), 'access date'),
+    'refresh_token': (date(2024, 4, 10), 'refresh date'),
 
 }
 
-CONSTANCE_CONFIG_FIELDSETS = {
-    'email tokens': ('email', 'access_token', 'refresh_token'),
-}
+# CONSTANCE_CONFIG_FIELDSETS = {
+#     'email tokens': ('email', 'access_token', 'refresh_token'),
+# }
 
 CACHES = {
     'default': {
